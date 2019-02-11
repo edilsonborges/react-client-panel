@@ -8,7 +8,6 @@ import Spinner from "../layout/Spinner";
 class ClientDetails extends Component {
   render() {
     const { client } = this.props;
-    console.log(client);
     if (client) {
       return (
         <div>
@@ -25,6 +24,26 @@ class ClientDetails extends Component {
                 Edit
               </Link>
               <button className="btn btn-danger">Delete</button>
+            </div>
+          </div>
+          <div className="card">
+            <h3 className="card-header">
+              {client.firstName} {client.lastName}
+            </h3>
+            <div className="card-body">
+              <div className="row">
+                <div className="col-md-8 col-sm-6">
+                  <h4>
+                    Client ID:{" "}
+                    <span className="text-secondary">{client.id}</span>
+                  </h4>
+                </div>
+                <div className="col-md-4 col-sm-6">
+                  <h3 className="pull-right">
+                    Balance: ${parseFloat(client.balance).toFixed(2)}
+                  </h3>
+                </div>
+              </div>
             </div>
           </div>
         </div>
