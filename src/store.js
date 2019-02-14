@@ -21,9 +21,6 @@ const rrfConfig = {
 
 // init firebase instance
 firebase.initializeApp(firebaseConfig);
-// init firestore
-// const firestore = firebase.firestore();
-
 // add reactreduxfirebase enhancer when making store creator
 const createStoreWithFirebase = compose(
   reactReduxFirebase(firebase, rrfConfig),
