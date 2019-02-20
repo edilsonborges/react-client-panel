@@ -5,18 +5,39 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import Spinner from "../layout/Spinner";
-import classnames from "classnames";
 
 class EditClient extends Component {
   constructor(props) {
     super(props);
-    // Creat refs
+
+    // Create refs
     this.firstNameInput = React.createRef();
     this.lastNameInput = React.createRef();
     this.emailInput = React.createRef();
     this.phoneInput = React.createRef();
     this.balanceInput = React.createRef();
   }
+  onSubmit = e => {
+    e.preventDefault();
+    const { client, firestore, history } = this.props;
+
+    // Update Client
+    const updClient = {
+      firstName: this.firstNameInput.current.value,
+      lastName: this.lastNameInput.current.value,
+      email: this.emailInput.current.value,
+      phone: this.phoneInput.current.value,
+      balance:
+        this.balanceInput.current.value === ""
+          ? 0
+          : this.balanceInput.current.value
+    };
+
+    // Update Client in firestore
+    firestore
+      .update({ collection: "clients", doc: client.id }, updClient)
+      .then(history.push("/"));
+  };
   render() {
     const { client } = this.props;
     if (client) {
