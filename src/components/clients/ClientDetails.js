@@ -24,6 +24,13 @@ class ClientDetails extends Component {
     firestore.update({ collection: "clients", doc: client.id }, clientUpdate);
   };
 
+  onDeleteClick = () => {
+    const { client, firestore, history } = this.props;
+    firestore
+      .delete({ collection: "clients", doc: client.id })
+      .then(history.push("/"));
+  };
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -73,7 +80,9 @@ class ClientDetails extends Component {
                 <Link to={`/client/edit/${client.id}`} className="btn btn-dark">
                   Edit
                 </Link>
-                <button className="btn btn-danger">Delete</button>
+                <button onClick={this.onDeleteClick} className="btn btn-danger">
+                  Delete
+                </button>
               </div>
             </div>
           </div>
@@ -96,7 +105,7 @@ class ClientDetails extends Component {
                     <span
                       className={classnames({
                         "text-danger": client.balance > 0,
-                        "text-success": client.balance == 0
+                        "text-success": client.balance === 0
                       })}
                     >
                       ${parseFloat(client.balance).toFixed(2)}
