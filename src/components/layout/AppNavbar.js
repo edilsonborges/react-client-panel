@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { firebaseConnect } from "react-redux-firebase";
-import { isatty } from "tty";
 
 class AppNavbar extends Component {
   state = {
@@ -76,7 +75,7 @@ AppNavbar.propTypes = {
 };
 
 export default compose(
-  firebaseConnect,
+  firebaseConnect(),
   connect((state, props) => ({
     auth: state.firebase.auth
   }))
